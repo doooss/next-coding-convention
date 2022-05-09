@@ -60,14 +60,32 @@ NAVER_MAP_ENV = ''
 
 - root 디렉토리 -- 설정 파일들 모음
 - public - 원본 유지 파일들 모음 (imgs, fonts, 외부소스 js...)
-- src - 소스파일 모음 [common](#common-공통-폴더) [features](#features)
+- src - 소스파일 모음 [common](#common-공통-폴더) [features](#features) [Pages](#pages)
 
-
+> src 폴더구조
 ```bash
 ├── common
 │   ├── components
 │   │   ├── elements
+│   │   │   ├── Button
+│   │   │   ├── FieldSet
+│   │   │   │   └── index.tsx
+│   │   │   ├── Progress
+│   │   │   │   ├── Progress.module.css
+│   │   │   │   └── index.tsx
+│   │   │   ├── SearchBar
+│   │   │   │   └── index.tsx
+│   │   │   └── index.ts
 │   │   └── layouts
+│   │       ├── Grid
+│   │       │   └── index.tsx
+│   │       ├── Paper
+│   │       │   └── index.tsx
+│   │       └── index.ts
+│   ├── hooks
+│   │   ├── index.ts
+│   │   ├── useModal.tsx
+│   │   └── useRouterEx.tsx
 │   ├── styles
 │   │   ├── fonts.css
 │   │   └── globals.css
@@ -79,11 +97,12 @@ NAVER_MAP_ENV = ''
 │   ├── api.ts
 │   └── pages.ts
 ├── features
-│   └── Home
-│       ├── components
-│       ├── index.tsx
-│       └── styles
-│           └── Home.module.css
+│   ├── Home
+│   │   ├── components
+│   │   ├── index.tsx
+│   │   └── styles
+│   │       └── Home.module.css
+│   └── Modal
 ├── pages
 │   ├── _app.tsx
 │   └── index.tsx
@@ -96,12 +115,29 @@ NAVER_MAP_ENV = ''
 
 ### common 공통 폴더
 
-> components 폴더는 components/styles 의 화면단과 types/util의 api 출력 직전 수정사항만 작성 
 
 ```bash
 ├── components
 │   ├── elements
+│   │   ├── Button
+│   │   ├── FieldSet
+│   │   │   └── index.tsx
+│   │   ├── Progress
+│   │   │   ├── Progress.module.css
+│   │   │   └── index.tsx
+│   │   ├── SearchBar
+│   │   │   └── index.tsx
+│   │   └── index.ts
 │   └── layouts
+│       ├── Grid
+│       │   └── index.tsx
+│       ├── Paper
+│       │   └── index.tsx
+│       └── index.ts
+├── hooks
+│   ├── index.ts
+│   ├── useModal.tsx
+│   └── useRouterEx.tsx
 ├── styles
 │   ├── fonts.css
 │   └── globals.css
@@ -115,15 +151,15 @@ NAVER_MAP_ENV = ''
 
 - layouts은 여러가지 가 대응 가능하도록 되도록 subComponents 패턴 이용
 
-- 이곳의 styles 는 전역 styles로 작성을 최소화 css로 가장 많이 사용되는 것만 사용
+- common/styles 는 전역 styles로 작성을 최소화 css로 가장 많이 사용되는 것만 사용
 
-- types 폴더는 api에 맞게 작성, 추가 데이터 표출 되는 형태 2가지로 작성
+- UI 관련 타입 작성란
 
-- util 폴더의 파일은 화면에 직접 보여주기 직전 수정 함수
+- hooks Api 호출이 아닌 ui 관련 훅들은 이곳에서 관리
+
+- util 유틸 함수 파일
 
 ### features
-
-> pages에 대응 하는 폴더 똑같이 제작, 이곳에서는 하위 컴포넌트와 styles 가 존재, Modal Components는 모두 독립적으로도 사용할 수 있도록 props 값을 최소화 하여 제작
 
 ```bash
 ├── Home
@@ -134,9 +170,24 @@ NAVER_MAP_ENV = ''
 └── Modal
 ```
 
-- pages 대응하여 index.tsx 는 가능하면 작성, query parameters는 해당 폴더 에 상위항에 export default 로 작성, components 폴더는 하위 로 제작 
+- pages 대응하여 index.tsx 는 가능하면 작성, query parameters는 해당 폴더 에 상위항에 export default 로 작성, components 폴더는 하위 로 제작.
 
-- Modal은 모두 독립적으로 사용가능하도록 hooks를 사용하여 제작 router query 이용
+- Modal은 모두 독립적으로 사용가능하도록 제작.
+
+### Pages
+
+- Pages폴더는 가급적 라우팅, ssr initial data fetching, head 태그 위주만 다룸.
+
+- 같은 이름의 컴포넌트가 features에 있을 예정이니 Pages 폴더 안의 컴포넌트는 ~Page를 붙여서 구분함.
+
+```ts
+    const HomePage = ()=>{
+        <Home />
+    }
+    
+    export default HomePage
+```
+
 
 ### Services
 
@@ -145,3 +196,9 @@ NAVER_MAP_ENV = ''
 ├── hooks
 └── types
 ```
+
+- api API서버에 맞게 요청 작성
+
+- hooks 위의 api 를 활용해서 react-query hooks 제작하여 관리하는 곳
+
+- types API 호출에 맞는 타입 작성란
