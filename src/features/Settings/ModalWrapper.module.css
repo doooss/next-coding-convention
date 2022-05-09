@@ -1,0 +1,10 @@
+/* stylelint-disable-next-line selector-class-pattern */
+.wrapper {
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    max-height: 100%;
+    touch-action: none;
+    overflow: hidden;
+    position: absolute;
+}

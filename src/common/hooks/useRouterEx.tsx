@@ -21,9 +21,29 @@ export const useRouterEx = () => {
             query: { ...queriesObject },
         });
     };
+
+    const removeQuery = (queryKey: string) => {
+        if (
+            router.query === undefined ||
+            !Object.keys(router.query).includes(queryKey)
+        ) {
+            throw new Error(
+                '현재 urlQuery 에 해당 querykey가 존재하지 않습니다.',
+            );
+        }
+
+        const urlQueries = router.query as Values;
+        delete urlQueries[queryKey];
+        router.push({
+            pathname: asPathWithoutQueries,
+            query: { ...urlQueries },
+        });
+    };
+
     return {
         asPathWithoutQueries,
         pushQuery,
         replaceQuery,
+        removeQuery,
     };
 };
