@@ -5,7 +5,6 @@ const Settings = ({ children }: { children: ReactNode }) => {
     return (
         <>
             <ModalWrapper>{children}</ModalWrapper>
-            <div id="root-modal" />
         </>
     );
 };

@@ -9,6 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <Settings>
                 <Component {...pageProps} />
             </Settings>
+            <div id="root_modal" />
         </>
     );
 }

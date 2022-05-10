@@ -1,6 +1,7 @@
 import Head from 'next/head';
-import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { ModalPaper } from 'src/common/components/layouts';
+import DataGrid from 'src/common/components/layouts/DataGrid';
 import { useModal } from 'src/common/hooks';
 
 import { Loading, Progress } from '../../common/components/elements';
@@ -8,7 +9,9 @@ import { SearchBar } from '../../common/components/elements/SearchBar';
 import styles from './Home.module.css';
 
 const Home = () => {
-    const { openModal, Portal, closeModal } = useModal('모달창열기');
+    const TestModal = useModal('test', { id: 2 });
+    const TextModal = useModal('text');
+    const router = useRouter();
     return (
         <>
             <div className={styles.container}>
@@ -22,88 +25,54 @@ const Home = () => {
                 </Head>
                 <SearchBar />
                 <Progress />
-                <button onClick={openModal}>모달창 열기</button>
 
+                <button
+                    onClick={() => {
+                        TextModal.openModal();
+                    }}
+                >
+                    text 모달창 열기
+                </button>
+                <button
+                    onClick={() => {
+                        TestModal.openModal();
+                    }}
+                >
+                    Test 모달창{' '}
+                </button>
                 <Loading state={true} />
-                <main className={styles.main}>
-                    <h1 className={styles.title}>
-                        Welcome to <a href="https://nextjs.org">Next.js!</a>
-                    </h1>
-                    <p className={styles.description}>
-                        Get started by editing{' '}
-                        <code className={styles.code}>pages/index.tsx</code>
-                    </p>
-                    <div className={styles.grid}>
-                        <a
-                            href="https://nextjs.org/docs"
-                            className={styles.card}
-                        >
-                            <h2>Documentation &rarr;</h2>
-                            <p>
-                                Find in-depth information about Next.js features
-                                and API.
-                            </p>
-                        </a>
-
-                        <a
-                            href="https://nextjs.org/learn"
-                            className={styles.card}
-                        >
-                            <h2>Learn &rarr;</h2>
-                            <p>
-                                Learn about Next.js in an interactive course
-                                with quizzes!
-                            </p>
-                        </a>
-
-                        <a
-                            href="https://github.com/vercel/next.js/tree/canary/examples"
-                            className={styles.card}
-                        >
-                            <h2>Examples &rarr;</h2>
-                            <p>
-                                Discover and deploy boilerplate example Next.js
-                                projects.
-                            </p>
-                        </a>
-
-                        <a
-                            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                            className={styles.card}
-                        >
-                            <h2>Deploy &rarr;</h2>
-                            <p>
-                                Instantly deploy your Next.js site to a public
-                                URL with Vercel.
-                            </p>
-                        </a>
-                    </div>
-                </main>
-
-                <footer className={styles.footer}>
-                    <a
-                        href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Powered by{' '}
-                        <span className={styles.logo}>
-                            <Image
-                                src="/vercel.svg"
-                                alt="Vercel Logo"
-                                width={72}
-                                height={16}
-                            />
-                        </span>
-                    </a>
-                </footer>
+                <DataGrid>
+                    <DataGrid.Title>test Word</DataGrid.Title>
+                    <DataGrid.SubTitle>SubTitle</DataGrid.SubTitle>
+                </DataGrid>
             </div>
-            <Portal>
-                <ModalPaper>
-                    <button onClick={closeModal}>닫기</button>
-                    모달창
-                </ModalPaper>
-            </Portal>
+
+            <TestModal.Portal>
+                {router.query.modal === 'text' && (
+                    <ModalPaper>
+                        <button
+                            onClick={() => {
+                                TextModal.closeModal();
+                            }}
+                        >
+                            닫기
+                        </button>
+                        모달창
+                    </ModalPaper>
+                )}
+                {router.query.modal === 'test' && (
+                    <ModalPaper>
+                        <button
+                            onClick={() => {
+                                TestModal.closeModal();
+                            }}
+                        >
+                            닫기
+                        </button>
+                        id : {router.query?.id}
+                    </ModalPaper>
+                )}
+            </TestModal.Portal>
         </>
     );
 };
