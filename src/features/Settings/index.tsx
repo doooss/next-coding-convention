@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ModalWrapper } from 'src/common/hooks';
+import { ModalWrapper } from 'src/hooks';
 
 const Settings = ({ children }: { children: ReactNode }) => {
     return (

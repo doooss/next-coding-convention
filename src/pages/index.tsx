@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
-
-import Home from '../features/Home';
+import Home from 'src/features/Home';
 
 const HomePage: NextPage = () => {
     return <Home />;

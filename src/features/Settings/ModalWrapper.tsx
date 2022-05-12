@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { useRouterEx } from 'src/common/hooks';
+import { useRouterEx } from 'src/hooks';
 
 import styles from './ModalWrapper.module.css';
 const ModalWrapper = ({ children }: { children: ReactNode }) => {
@@ -16,7 +16,7 @@ const ModalWrapper = ({ children }: { children: ReactNode }) => {
         }
     }, [router]);
     const onClickDivButton = () => {
-        removeQuery('modal');
+        removeQuery(['modal']);
     };
     if (state === true)
         return (

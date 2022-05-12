@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ModalPaper } from 'src/common/components/layouts';
-import DataGrid from 'src/common/components/layouts/DataGrid';
-import { useModal } from 'src/common/hooks';
+import { Loading, Progress } from 'src/components/elements';
+import { SearchBar } from 'src/components/elements/SearchBar';
+import { ModalPaper } from 'src/components/layouts';
+import DataGrid from 'src/components/layouts/DataGrid';
+import { useModal } from 'src/hooks';
 
-import { Loading, Progress } from '../../common/components/elements';
-import { SearchBar } from '../../common/components/elements/SearchBar';
 import styles from './Home.module.css';
 
 const Home = () => {
